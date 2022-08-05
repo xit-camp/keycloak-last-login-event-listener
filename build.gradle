@@ -18,7 +18,7 @@ repositories {
 }
 
 group = 'de.scimeda.keycloak'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0-SNAPSHOT'
 description = 'last-login-event-listener'
 
 ext {
