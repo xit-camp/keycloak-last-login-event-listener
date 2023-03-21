@@ -1,6 +1,8 @@
-# Keycloak Last Login Event Listener
+# Keycloak User Event Listener
 
 Sets a last login attribute on the user model when they login.
+
+Sets a last password update attribute on the user model when they reset or update password.
 
 This is based on the templates provided by [zonaut](https://github.com/zonaut/keycloak-extensions).
 
