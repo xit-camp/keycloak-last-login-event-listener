@@ -6,11 +6,11 @@ import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.KeycloakSessionFactory;
 
 
-public class LastLoginEventListenerProviderFactory implements EventListenerProviderFactory {
+public class UserEventListenerProviderFactory implements EventListenerProviderFactory {
 
     @Override
-    public LastLoginEventListenerProvider create(KeycloakSession keycloakSession) {
-        return new LastLoginEventListenerProvider(keycloakSession);
+    public UserEventListenerProvider create(KeycloakSession keycloakSession) {
+        return new UserEventListenerProvider(keycloakSession);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class LastLoginEventListenerProviderFactory implements EventListenerProvi
 
     @Override
     public String getId() {
-        return "last_login";
+        return "user_events";
     }
 
 }

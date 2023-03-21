@@ -18,11 +18,11 @@ repositories {
 }
 
 group = 'de.scimeda.keycloak'
-version = '1.0.0-SNAPSHOT'
-description = 'last-login-event-listener'
+version = '1.1.0-SNAPSHOT'
+description = 'user-event-listener'
 
 ext {
-    keycloakVersion = "19.0.1"
+    keycloakVersion = "21.0.1"
 }
 
 

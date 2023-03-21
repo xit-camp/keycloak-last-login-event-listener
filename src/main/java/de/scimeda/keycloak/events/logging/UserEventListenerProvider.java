@@ -16,14 +16,14 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
-public class LastLoginEventListenerProvider implements EventListenerProvider {
+public class UserEventListenerProvider implements EventListenerProvider {
 
-    private static final Logger log = Logger.getLogger(LastLoginEventListenerProvider.class);
+    private static final Logger log = Logger.getLogger(UserEventListenerProvider.class);
 
     private final KeycloakSession session;
     private final RealmProvider model;
 
-    public LastLoginEventListenerProvider(KeycloakSession session) {
+    public UserEventListenerProvider(KeycloakSession session) {
         this.session = session;
         this.model = session.realms();
     }
@@ -50,6 +50,19 @@ public class LastLoginEventListenerProvider implements EventListenerProvider {
                 OffsetDateTime loginTime = OffsetDateTime.now(ZoneOffset.UTC);
                 String loginTimeS = DateTimeFormatter.ISO_DATE_TIME.format(loginTime);
                 user.setSingleAttribute("last-login", loginTimeS);
+            }
+        }
+        if (EventType.RESET_PASSWORD.equals(event.getType()) || EventType.UPDATE_PASSWORD.equals(event.getType()) ) {
+            RealmModel realm = this.model.getRealm(event.getRealmId());
+            UserModel user = this.session.users().getUserById(realm, event.getUserId());
+
+            if (user != null) {
+                log.info("Updating last password update status for user: " + event.getUserId());
+
+                // Use current server time for login event
+                OffsetDateTime passwordUpdateTime = OffsetDateTime.now(ZoneOffset.UTC);
+                String passwordUpdateTimeS = DateTimeFormatter.ISO_DATE_TIME.format(passwordUpdateTime);
+                user.setSingleAttribute("last-password-update", passwordUpdateTimeS);
             }
         }
     }
